@@ -33,4 +33,5 @@ pipeline-meteo-paris/
 
 ## 🖼️ Capture du Dashboard
 
-![Dashboard](screenshots/Dashboard)
+![Dashboard](screenshots/Dashboard.png)
+```
