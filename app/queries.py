@@ -81,8 +81,9 @@ def get_jour_plus_froid():
 
 def get_30_derniers_jours():
     conn = get_Connection()
+    # Return timestamp directly instead of formatting in MySQL
     df = pd.read_sql_query("""
-        SELECT timestamp AS date, temperature
+        SELECT timestamp, temperature
         FROM meteo
         WHERE timestamp >= CURDATE() - INTERVAL 30 DAY
         ORDER BY timestamp ASC;
@@ -95,7 +96,7 @@ def get_temps_par_jour():
     df = pd.read_sql_query("""
         SELECT timestamp AS date, temperature
         FROM meteo
-        ORDRER by timestamp asc;
+        ORDER BY timestamp ASC;
     """, conn)
     conn.close()
     return df

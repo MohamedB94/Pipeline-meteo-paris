@@ -3,17 +3,10 @@ import pandas as pd
 from datetime import datetime, timedelta
 import config
 
-from queries import (
-    get_ajd_meteo,
-    get_temp_delta,
-    get_nb_jours,
-    get_moy_dernier_7_jours,
-    get_jour_plus_chaud,
-    get_jour_plus_froid,
-    get_30_derniers_jours,
-    get_temps_par_jour,
-    get_temps_par_semaine,
-    get_temps_par_mois
+from app.queries import (
+    get_ajd_meteo, get_temp_delta, get_nb_jours, get_moy_dernier_7_jours,
+    get_jour_plus_chaud, get_jour_plus_froid, get_30_derniers_jours,
+    get_temps_par_jour, get_temps_par_semaine, get_temps_par_mois
 )
 
 # Titre
@@ -47,8 +40,8 @@ st.write(f"❄️ Plus froid : {get_jour_plus_froid()}")
 # Graphique des 30 derniers jours
 st.markdown("### 📈 Températures des 30 derniers jours")
 df_30j = get_30_derniers_jours()
+
 if not df_30j.empty:
-    df_30j['timestamp'] = pd.to_datetime(df_30j['timestamp']).dt.date
     df_30j = df_30j.sort_values("timestamp")
     st.line_chart(df_30j.set_index("timestamp")["temperature"])
 else:

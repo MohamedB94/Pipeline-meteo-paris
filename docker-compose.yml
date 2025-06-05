@@ -21,6 +21,11 @@ services:
       - "8501:8501"
     depends_on:
       - mysql
+    working_dir: /app
+    volumes:
+      - ./:/app
+    environment:
+      - PYTHONPATH=/app
 
 volumes:
   db_data:

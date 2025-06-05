@@ -3,7 +3,7 @@ from app.fetch_api import fetch_donnees_meteo
 
 def main():
     print("Création de la table...")
-    create_Table()  # ⬅️ ligne obligatoire
+    create_Table()  
 
     print("Récupération des données météo...")
     data = fetch_donnees_meteo()
