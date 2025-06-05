@@ -3,14 +3,13 @@ import pymysql
 def get_Connection():
     try:
         return pymysql.connect(
-            host='localhost',
+            host='mysql',  # nom du service Docker
             user='root',
-            password='',
+            password='root',
             database='meteo_db',
             charset='utf8mb4',
             cursorclass=pymysql.cursors.DictCursor
         )
     except pymysql.MySQLError as e:
-        print(f"Erreur de connexion à la base de données : {e}")
+        print("❌ Erreur de connexion MySQL :", e)
         return None
-    

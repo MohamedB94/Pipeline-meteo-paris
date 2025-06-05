@@ -89,3 +89,35 @@ def get_30_derniers_jours():
     """, conn)
     conn.close()
     return df
+
+def get_temps_par_jour():
+    conn = get_Connection()
+    df = pd.read_sql_query("""
+        SELECT timestamp AS date, temperature
+        FROM meteo
+        ORDRER by timestamp asc;
+    """, conn)
+    conn.close()
+    return df
+
+def get_temps_par_semaine():
+    conn = get_Connection()
+    df = pd.read_sql_query("""
+        SELECT DATE_FORMAT(timestamp, '%%Y-%%u') AS semaine, AVG(temperature) AS temperature
+        FROM meteo
+        GROUP BY semaine
+        ORDER BY semaine ASC;
+    """, conn)
+    conn.close()
+    return df
+
+def get_temps_par_mois():
+    conn = get_Connection()
+    df = pd.read_sql_query("""
+        SELECT DATE_FORMAT(timestamp, '%%Y-%%m') AS mois, AVG(temperature) AS temperature
+        FROM meteo
+        GROUP BY mois
+        ORDER BY mois ASC;
+    """, conn)
+    conn.close()
+    return df

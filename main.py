@@ -1,18 +1,19 @@
+from app.database import create_Table, insert_Meteo
 from app.fetch_api import fetch_donnees_meteo
-from app.database import create_Table , insert_Meteo
 
 def main():
-    print("Initialisation de la base...")
-    create_Table()
+    print("Création de la table...")
+    create_Table()  # ⬅️ ligne obligatoire
 
     print("Récupération des données météo...")
     data = fetch_donnees_meteo()
 
-    if data: 
-        print("Insertion des données dans la base...")
+    if data:
+        print("Insertion dans la base...")
         insert_Meteo(data)
-        print("Données insérées avec succès.")
+        print("✅ Données insérées avec succès.")
     else:
-        print("Aucune donnée à insérer.")
+        print("❌ Aucune donnée récupérée.")
+
 if __name__ == "__main__":
     main()

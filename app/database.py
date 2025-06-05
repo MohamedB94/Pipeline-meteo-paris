@@ -1,6 +1,7 @@
 from app.config import get_Connection
 
 def create_Table():
+    print("📦 Tentative de création de la table meteo...")
     conn = get_Connection()
     cur = conn.cursor()
     cur.execute("""

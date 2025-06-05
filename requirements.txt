@@ -2,3 +2,4 @@ streamlit
 requests
 pymysql
 pandas
+cryptography
