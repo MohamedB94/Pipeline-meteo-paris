@@ -79,38 +79,77 @@ def get_jour_plus_froid():
     conn.close()
     return f"{resultat['timestamp']} ({resultat['temperature']} °C)" if resultat else "N/A"
 
-def get_30_derniers_jours():
-    conn = get_Connection()
-    # Return timestamp directly instead of formatting in MySQL
-    df = pd.read_sql_query("""
-        SELECT timestamp, temperature
-        FROM meteo
-        WHERE timestamp >= CURDATE() - INTERVAL 30 DAY
-        ORDER BY timestamp ASC;
-    """, conn)
-    conn.close()
-    return df
-
 def get_temps_par_jour():
     conn = get_Connection()
-    df = pd.read_sql_query("""
-        SELECT timestamp AS date, temperature
-        FROM meteo
-        ORDER BY timestamp ASC;
-    """, conn)
-    conn.close()
-    return df
+    try:
+        cursor = conn.cursor()
+        cursor.execute("""
+            SELECT DATE(timestamp) AS date, temperature
+            FROM meteo
+            ORDER BY timestamp ASC;
+        """)
+        results = cursor.fetchall()
+        cursor.close()
+        
+        # Conversion manuelle en DataFrame
+        if results:
+            df = pd.DataFrame(results)
+            return df
+        return pd.DataFrame()
+    except Exception as e:
+        print(f"Erreur dans get_temps_par_jour: {e}")
+        return pd.DataFrame()
+    finally:
+        conn.close()
+
+def get_30_derniers_jours():
+    conn = get_Connection()
+    try:
+        # Utiliser un curseur au lieu de read_sql_query
+        cursor = conn.cursor()
+        cursor.execute("""
+            SELECT timestamp, temperature
+            FROM meteo
+            WHERE timestamp >= CURDATE() - INTERVAL 30 DAY
+            ORDER BY timestamp ASC;
+        """)
+        results = cursor.fetchall()
+        cursor.close()
+        
+        # Conversion manuelle en DataFrame
+        if results:
+            df = pd.DataFrame(results)
+            return df
+        return pd.DataFrame()
+    except Exception as e:
+        print(f"Erreur dans get_30_derniers_jours: {e}")
+        return pd.DataFrame()
+    finally:
+        conn.close()
 
 def get_temps_par_semaine():
     conn = get_Connection()
-    df = pd.read_sql_query("""
-        SELECT DATE_FORMAT(timestamp, '%%Y-%%u') AS semaine, AVG(temperature) AS temperature
-        FROM meteo
-        GROUP BY semaine
-        ORDER BY semaine ASC;
-    """, conn)
-    conn.close()
-    return df
+    try:
+        cursor = conn.cursor()
+        cursor.execute("""
+            SELECT DATE_FORMAT(timestamp, '%%Y-%%u') AS semaine, AVG(temperature) AS temperature
+            FROM meteo
+            GROUP BY semaine
+            ORDER BY semaine ASC;
+        """)
+        results = cursor.fetchall()
+        cursor.close()
+        
+        # Conversion manuelle en DataFrame
+        if results:
+            df = pd.DataFrame(results)
+            return df
+        return pd.DataFrame()
+    except Exception as e:
+        print(f"Erreur dans get_temps_par_semaine: {e}")
+        return pd.DataFrame()
+    finally:
+        conn.close()
 
 def get_temps_par_mois():
     conn = get_Connection()
