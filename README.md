@@ -1,6 +1,6 @@
 # 🌤️ Dashboard Météo – Pipeline de Données avec Docker, MySQL & Streamlit
 
-Ce projet est un mini pipeline de data engineering qui collecte automatiquement les données météorologiques de la ville de **Paris** via l’API **OpenWeatherMap**, les stocke dans une base **MySQL** conteneurisée, et les visualise dans une application **Streamlit**.
+Ce projet est un mini pipeline de data engineering qui collecte automatiquement les données météorologiques de la ville de **Paris** via l'API **OpenWeatherMap**, les stocke dans une base **MySQL** conteneurisée, et les visualise dans une application **Streamlit**.
 
 ---
 
@@ -46,7 +46,7 @@ pipeline-meteo-paris/
 
 - Docker Desktop avec WSL2 activé
 - Un compte [OpenWeatherMap](https://openweathermap.org/) et une clé API
-- Clé insérée dans `fetch_api.py` dans l’URL :  
+- Clé insérée dans `fetch_api.py` dans l'URL :  
   `https://api.openweathermap.org/data/2.5/weather?q=Paris&appid=VOTRE_CLÉ_API&units=metric`
 
 ---
@@ -104,4 +104,17 @@ SELECT * FROM meteo;
 
 ## 👨‍💻 Auteur
 
-Projet développé par **Mohamed Benasr** (2025) – dans le cadre d’un apprentissage du data engineering, du déploiement avec Docker, et de la visualisation de données temps réel.
+Projet développé par **Mohamed Benasr** (2025) – dans le cadre d'un apprentissage du data engineering, du déploiement avec Docker, et de la visualisation de données temps réel.
+
+---
+
+## ⚠️ Disclaimer
+
+Ce projet a été développé dans un temps limité et présente certaines limitations à noter :
+
+- La qualité et la fiabilité des données peuvent varier selon la disponibilité de l'API OpenWeatherMap
+- La gestion des erreurs et la validation des données pourraient être améliorées
+- Le système de stockage des données pourrait être optimisé pour une meilleure performance
+- La gestion des connexions à la base de données pourrait être plus robuste
+
+Ces points sont identifiés comme des axes d'amélioration pour les futures versions du projet.
